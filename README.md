@@ -1,0 +1,30 @@
+# AI Engineering Notes
+
+Small, working projects I build while learning backend and AI engineering.
+Each folder is one topic: real code you can run, with tests, and a short README explaining how it works.
+
+## Projects
+
+| Folder | What it shows | Stack |
+|---|---|---|
+| [fastapi-project-structure](./fastapi-project-structure) | How to split a growing FastAPI app into routers, services, schemas (Pydantic), models and core, so business logic stays out of the routes | FastAPI, Pydantic, pytest |
+
+More topics get added here as I build them.
+
+## Running any project
+
+Each folder is self-contained. From inside a project folder:
+
+```
+python -m venv venv
+venv\Scripts\activate        # on Mac/Linux: source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Then follow that folder's README.
+
+## About
+
+I'm Vineet. I'm sharing what I learn and build, one topic at a time, on LinkedIn and here on GitHub.
+
+Follow along on LinkedIn: [linkedin.com/in/vineet416](https://www.linkedin.com/in/vineet416/) 
