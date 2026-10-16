@@ -1,0 +1,39 @@
+# Example only: how Kubernetes would use the two endpoints.
+# (Not needed to run the project locally.)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: health-checks-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: health-checks-demo
+  template:
+    metadata:
+      labels:
+        app: health-checks-demo
+    spec:
+      containers:
+        - name: api
+          image: health-checks-demo:latest
+          ports:
+            - containerPort: 8000
+          # Fails 3 times in a row -> Kubernetes RESTARTS the container.
+          # Only checks the process itself, never the database.
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8000
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          # Fails -> Kubernetes stops SENDING TRAFFIC to this pod (no restart).
+          # When it passes again, traffic comes back on its own.
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8000
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 2
