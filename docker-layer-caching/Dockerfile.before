@@ -1,0 +1,12 @@
+# BEFORE: the order we started with.
+# COPY . . copies every file first, so editing any file (even one line
+# in app/main.py) changes this step. Docker then has to re-run every
+# step after it, including the slow pip install.
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

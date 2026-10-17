@@ -1,0 +1,13 @@
+# AFTER: copy requirements.txt on its own, install, then copy the code.
+# The pip install step now only depends on requirements.txt, so a code
+# change reuses the cached install and only the last COPY runs again.
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

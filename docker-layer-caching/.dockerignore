@@ -1,0 +1,11 @@
+# Keep these out of the build context (and out of the image).
+.git
+.venv
+venv
+__pycache__
+*.pyc
+.env
+.env.*
+.pytest_cache
+.vscode
+results.txt
