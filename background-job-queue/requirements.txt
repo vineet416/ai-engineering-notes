@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+redis
+openai
+pydantic-settings
+fakeredis
+httpx2
+pytest
