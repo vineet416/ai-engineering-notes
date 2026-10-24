@@ -14,6 +14,7 @@ Each folder is one topic: real code you can run, with tests, and a short README 
 | [docker-layer-caching](./docker-layer-caching) | Why one line of code made Docker reinstall every package. Two Dockerfiles that differ only in line order (`COPY requirements.txt` + `pip install` before `COPY . .`), a `.dockerignore`, and a script that times a rebuild after a one-line change: 1m 04.8s before, 2.8s after | Docker, FastAPI, scikit-learn |
 | [background-job-queue](./background-job-queue) | Producers, queues and workers, explained with a restaurant kitchen. A FastAPI endpoint puts an LLM summary job on a Redis queue and returns 202 in ~4 ms instead of waiting ~1 s for the Groq call; separate workers do the slow part (12 jobs: 10.7 s with 1 worker, 3.4 s with 4). A crash demo kills a worker mid-job: pop-and-forget (`BRPOP`) loses the job, claim + ack (`BLMOVE` + a lease + a reaper) recovers it. Retries and a dead-letter list. 12 tests | FastAPI, Redis, Groq (OpenAI-compatible API), pydantic-settings, fakeredis, pytest |
 | [rate-limiter](./rate-limiter) | Designing an API rate limiter (10 requests/min per API key, 429 + `Retry-After`) and every way it went wrong: a counter in each server's memory lets 30 of 30 through on 3 servers, GET-then-SET in Redis lets 50 of 50 through in a race, a fixed window lets 20 through in 1 second at the edge. The fix is a token bucket in one Lua script, run atomically by Redis on Redis's own clock. Fails open with a 200 ms timeout when Redis is down. 14 tests | FastAPI, Redis, Lua, fakeredis, pytest |
+| [enterprise-rag-system-design](./enterprise-rag-system-design) | System design (no code) for an internal "ChatGPT on our docs" at a 3,000-person company, following one question: an intern asking "What does my manager earn?". Offline ingestion (incremental connectors, section-based chunks, ACL tags in the vector DB, delete and access sync) and the online path (SSO, orchestrator, permission filter inside the search, BM25 + vector hybrid, reranker, LLM gateway, cited answers or "not found"), plus evals and monitoring. | SSO, vector DB (pgvector / Qdrant / Weaviate), BM25, cross-encoder reranker, LLM gateway |
 
 More topics get added here as I build them.
 
@@ -27,7 +28,7 @@ venv\Scripts\activate        # on Mac/Linux: source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Then follow that folder's README.
+Then follow that folder's README. Design-only folders (like enterprise-rag-system-design) have nothing to install; just read the README.
 
 ## About
 
