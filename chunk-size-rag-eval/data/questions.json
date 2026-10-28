@@ -1,0 +1,232 @@
+[
+  {
+    "id": 1,
+    "question": "My endpoint takes a file and processes it slowly. What should it return right away?",
+    "evidence": "you can return a response of \"Accepted\" (HTTP 202) and process the file in the background"
+  },
+  {
+    "id": 2,
+    "question": "Can a background task function be async, or must it be a normal def?",
+    "evidence": "It can be an `async def` or normal `def` function"
+  },
+  {
+    "id": 3,
+    "question": "When is FastAPI's built-in BackgroundTasks not enough and I should look at Celery?",
+    "evidence": "you don't necessarily need it to be run by the same process"
+  },
+  {
+    "id": 4,
+    "question": "I set allowed origins to a wildcard. Why do requests with cookies still fail?",
+    "evidence": "excluding everything that involves credentials"
+  },
+  {
+    "id": 5,
+    "question": "For how many seconds do browsers cache CORS responses by default?",
+    "evidence": "Sets a maximum time in seconds for browsers to cache CORS responses. Defaults to `600`"
+  },
+  {
+    "id": 6,
+    "question": "Which HTTP methods does CORSMiddleware allow if I don't set allow_methods?",
+    "evidence": "A list of HTTP methods that should be allowed for cross-origin requests. Defaults to `['GET']`"
+  },
+  {
+    "id": 7,
+    "question": "I added two middlewares. Which one sees the incoming request first?",
+    "evidence": "The last middleware added is the *outermost*, and the first is the *innermost*"
+  },
+  {
+    "id": 8,
+    "question": "Do background tasks run before or after the middleware?",
+    "evidence": "they will run *after* all the middleware"
+  },
+  {
+    "id": 9,
+    "question": "What's the downside of reading an uploaded file as bytes?",
+    "evidence": "this means that the whole contents will be stored in memory"
+  },
+  {
+    "id": 10,
+    "question": "How does UploadFile handle a huge video without using all the RAM?",
+    "evidence": "A file stored in memory up to a maximum size limit, and after passing this limit it will be stored on disk"
+  },
+  {
+    "id": 11,
+    "question": "Can one request upload files and also send a JSON body?",
+    "evidence": "as the request will have the body encoded using `multipart/form-data` instead of `application/json`"
+  },
+  {
+    "id": 12,
+    "question": "My HTML form doesn't send unchecked checkboxes at all. How do I get False?",
+    "evidence": "Browsers omit unchecked checkboxes when submitting HTML forms"
+  },
+  {
+    "id": 13,
+    "question": "Why must the OAuth2 login send username and password as form fields?",
+    "evidence": "requires the fields to be exactly named `username` and `password`"
+  },
+  {
+    "id": 14,
+    "question": "What does OAuth2PasswordBearer do when the Authorization header is missing?",
+    "evidence": "it will respond with a 401 status code error (`UNAUTHORIZED`) directly"
+  },
+  {
+    "id": 15,
+    "question": "My API is hosted under /api/v1/. Where does tokenUrl=\"token\" point?",
+    "evidence": "then it would refer to `https://example.com/api/v1/token`"
+  },
+  {
+    "id": 16,
+    "question": "Why is the parameter called tokenUrl and not token_url?",
+    "evidence": "That's because it is using the same name as in the OpenAPI spec"
+  },
+  {
+    "id": 17,
+    "question": "Why should login tokens expire?",
+    "evidence": "And if the token is stolen, the risk is less"
+  },
+  {
+    "id": 18,
+    "question": "Do I return an HTTPException or raise it?",
+    "evidence": "you don't `return` it, you `raise` it"
+  },
+  {
+    "id": 19,
+    "question": "Can the error detail be a dict instead of a plain string?",
+    "evidence": "you can pass any value that can be converted to JSON as the parameter `detail`, not only `str`"
+  },
+  {
+    "id": 20,
+    "question": "Should my custom exception handler be registered for FastAPI's HTTPException or Starlette's?",
+    "evidence": "But when you register an exception handler, you should register it for Starlette's `HTTPException`"
+  },
+  {
+    "id": 21,
+    "question": "Is it OK to return str(exc) of a validation error straight to the user?",
+    "evidence": "you could be leaking a bit of information about your system"
+  },
+  {
+    "id": 22,
+    "question": "Which status code does the custom UnicornException handler send back?",
+    "evidence": "you will receive a clean error, with an HTTP status code of `418`"
+  },
+  {
+    "id": 23,
+    "question": "Which FastAPI version do I need before using Annotated with Depends?",
+    "evidence": "to at least 0.95.1 before using `Annotated`"
+  },
+  {
+    "id": 24,
+    "question": "When I pass my function to Depends, do I add the parentheses?",
+    "evidence": "You **don't call it** directly (don't add the parenthesis at the end)"
+  },
+  {
+    "id": 25,
+    "question": "Can an async dependency be used in a normal def endpoint?",
+    "evidence": "And you can declare dependencies with `async def` inside of normal `def` *path operation functions*"
+  },
+  {
+    "id": 26,
+    "question": "Which status code means there's nothing to send back in the body?",
+    "evidence": "A special case is `204`, \"No Content\""
+  },
+  {
+    "id": 27,
+    "question": "Where do I set status_code: on the function or on the decorator?",
+    "evidence": "Notice that `status_code` is a parameter of the \"decorator\" method"
+  },
+  {
+    "id": 28,
+    "question": "Should my TestClient test functions be async def?",
+    "evidence": "Notice that the testing functions are normal `def`, not `async def`"
+  },
+  {
+    "id": 29,
+    "question": "How do I send form data instead of JSON with TestClient?",
+    "evidence": "If you need to send *Form Data* instead of JSON, use the `data` parameter instead"
+  },
+  {
+    "id": 30,
+    "question": "Can I pass a Pydantic model object directly to TestClient?",
+    "evidence": "Note that the `TestClient` receives data that can be converted to JSON, not Pydantic models"
+  },
+  {
+    "id": 31,
+    "question": "I have /users/me and /users/{user_id}. Why does /users/me hit the wrong endpoint?",
+    "evidence": "you need to make sure that the path for `/users/me` is declared before the one for `/users/{user_id}`"
+  },
+  {
+    "id": 32,
+    "question": "What happens if someone sends 4.2 to an int path parameter?",
+    "evidence": "The same error would appear if you provided a `float` instead of an `int`"
+  },
+  {
+    "id": 33,
+    "question": "Which query string values become False for a bool parameter?",
+    "evidence": "Values such as `0`, `false`, `off`, and `no` (including case variations) are converted to `False`"
+  },
+  {
+    "id": 34,
+    "question": "What does ?short=maybe return for a bool query parameter?",
+    "evidence": "or an unrecognized value (for example, `?short=maybe`) produces a `422` validation error"
+  },
+  {
+    "id": 35,
+    "question": "How do I make a query parameter required?",
+    "evidence": "But when you want to make a query parameter required, you can just not declare any default value"
+  },
+  {
+    "id": 36,
+    "question": "Why does a user_agent parameter read the User-Agent header?",
+    "evidence": "will convert the parameter names characters from underscore (`_`) to hyphen (`-`)"
+  },
+  {
+    "id": 37,
+    "question": "Is it safe to turn off convert_underscores for headers?",
+    "evidence": "some HTTP proxies and servers disallow the usage of headers with underscores"
+  },
+  {
+    "id": 38,
+    "question": "Will a mounted StaticFiles app appear in my OpenAPI docs?",
+    "evidence": "The OpenAPI and docs from your main application won't include anything from the mounted application"
+  },
+  {
+    "id": 39,
+    "question": "If I set both a return type and response_model, which one is used?",
+    "evidence": "If you declare both a return type and a `response_model`, the `response_model` will take priority"
+  },
+  {
+    "id": 40,
+    "question": "How do I stop the API from sending the user's password back in the response?",
+    "evidence": "will take care of filtering out all the data that is not declared in the output model"
+  },
+  {
+    "id": 41,
+    "question": "Why does the SQLite example pass check_same_thread=False?",
+    "evidence": "allows FastAPI to use the same SQLite database in different threads"
+  },
+  {
+    "id": 42,
+    "question": "Should the client be allowed to choose the id of a new record?",
+    "evidence": "Deciding the `id` should be done by the **backend** or the **database**, **not by the client**"
+  },
+  {
+    "id": 43,
+    "question": "Should I create database tables on startup in production?",
+    "evidence": "For production you would probably use a migration script that runs before you start your app"
+  },
+  {
+    "id": 44,
+    "question": "How do I add the X-Token dependency to every route in one module at once?",
+    "evidence": "So, instead of adding all that to each *path operation*, we can add it to the `APIRouter`"
+  },
+  {
+    "id": 45,
+    "question": "What is the Flask equivalent of APIRouter?",
+    "evidence": "If you come from Flask, this would be the equivalent of Flask's Blueprints"
+  },
+  {
+    "id": 46,
+    "question": "How do I run my FastAPI app inside the VS Code debugger?",
+    "evidence": "In your FastAPI application, import and run `uvicorn` directly"
+  }
+]
